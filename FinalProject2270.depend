@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1430173504 source:/home/user/Dropbox/Spring 2015/CSCI 2270/FinalProject2270/library.cpp
+	"library.h"
+	<iostream>
+	<string>
+
+1430173167 /home/user/Dropbox/Spring 2015/CSCI 2270/FinalProject2270/library.h
+	<string>
+	<iostream>
+
+1430173167 source:/home/user/Dropbox/Spring 2015/CSCI 2270/FinalProject2270/main.cpp
+	<iostream>
+	<string>
+	"library.h"
+
