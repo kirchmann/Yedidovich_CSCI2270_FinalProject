@@ -1,7 +1,9 @@
 #include "library.h"
 #include <iostream>
 #include <string>
-
+/*
+Constructor for the library class which creates the hashTables and points all values to a null pointer
+*/
 Library::Library()
 {
     for(int i=0;i<20;i++) //create a hash table of size 20
@@ -14,6 +16,10 @@ Library::Library()
     }
 }
 
+
+/*
+a method that creates the hash value for a passed in string
+*/
 int Library::hashSum(string title)
 {
     int sum = 0;
@@ -23,6 +29,9 @@ int Library::hashSum(string title)
     return sum;
 }
 
+/*
+a method that inserts an item into its hash table
+*/
 void Library::insertItem(string in_title, int in_year, string in_type, string in_genre, int in_quantity,string in_author)
 {
     bool in_checked_out;
@@ -77,6 +86,10 @@ void Library::insertItem(string in_title, int in_year, string in_type, string in
     }
 }
 
+
+/*
+A function that finds an item within the hash table and prints out all of the information on that item
+*/
 void Library::checkStatus(string in_title)
 {
     int hashLocation;
@@ -101,6 +114,9 @@ void Library::checkStatus(string in_title)
     cout<< "not found" <<endl;
 }
 
+/*
+A method that reduces the quantity of an item by one and adds another person to the checked out list
+*/
 void Library::checkOutItem(string in_title, string in_name)
 {
         int hashLocation;
@@ -135,6 +151,9 @@ void Library::checkOutItem(string in_title, string in_name)
     cout<< "not found" <<endl;
 }
 
+/*
+method that increases the quantity of an item by one
+*/
 void Library::returnItem(string in_title)
 {
         int hashLocation;
@@ -168,6 +187,9 @@ void Library::returnItem(string in_title)
     cout<< "Item not found in library" <<endl;
 }
 
+/*
+delete an item from the hashTable
+*/
 void Library::deleteItem(string in_title)
 {
     int location = hashSum(in_title);
@@ -203,6 +225,9 @@ void Library::deleteItem(string in_title)
     cout<<"Item not in library"<<endl;
 }
 
+/*
+print everything in the hashTable
+*/
 void Library::printAllInventory()
 {
     int counter = 0;
@@ -229,6 +254,9 @@ void Library::printAllInventory()
     }
 }
 
+/*
+print the inventory but only for specific filters
+*/
 void Library::printInventory(int filter, string input) //1 is genre, 2 is media type, 3 is author
 {
     int counter = 0;
@@ -286,6 +314,9 @@ void Library::printInventory(int filter, string input) //1 is genre, 2 is media 
     }
 }
 
+/*
+print everything in the renters hashTable
+*/
 void Library::printRenters()
 {
     int counter = 0;
@@ -312,6 +343,9 @@ void Library::printRenters()
     }
 }
 
+/*
+add a renter to the renter Hashtable
+*/
 void Library::newRenter(string in_title, string in_name)
 {
     renter *New = new renter(in_title,in_name);
@@ -361,6 +395,9 @@ void Library::newRenter(string in_title, string in_name)
     }
 }
 
+/*
+print all items in the inventory that have a quantity of 0 or less
+*/
 void Library::outStock()
 {
     int counter = 0;
@@ -389,6 +426,9 @@ void Library::outStock()
     }
 }
 
+/*
+print all items that have a quantity of greater than 0
+*/
 void Library::inStock()
 {
        int counter = 0;
