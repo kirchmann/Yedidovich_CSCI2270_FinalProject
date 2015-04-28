@@ -8,6 +8,10 @@ Library::Library()
     {
         hashTable[i] = nullptr;
     }
+    for(int i=0;i<20;i++) //create a hash table of size 20
+    {
+        renterHash[i] = nullptr;
+    }
 }
 
 int Library::hashSum(string title)
@@ -97,7 +101,7 @@ void Library::checkStatus(string in_title)
     cout<< "not found" <<endl;
 }
 
-void Library::checkOutItem(string in_title)
+void Library::checkOutItem(string in_title, string in_name)
 {
         int hashLocation;
     hashLocation = hashSum(in_title);
@@ -115,6 +119,8 @@ void Library::checkOutItem(string in_title)
             {
                 temp->checked_out = true;
             }
+
+            newRenter(in_title, in_name);
 
             return;
         }
@@ -279,3 +285,136 @@ void Library::printInventory(int filter, string input) //1 is genre, 2 is media 
         cout<<"empty"<<endl;
     }
 }
+
+void Library::printRenters()
+{
+    int counter = 0;
+    renter* temp;
+
+    for(int i=0;i<20;i++)
+    {
+        if(renterHash[i] != nullptr)
+        {
+            temp = renterHash[i];
+            while(temp->next != nullptr)
+            {
+                cout<<"Renter:"<<temp->rentedItem<<endl<<"Item checked out:"<<temp->name<<endl<<endl;
+                temp = temp->next;
+            }
+            cout<<"Renter:"<<temp->rentedItem<<endl<<"Item checked out:"<<temp->name<<endl<<endl;
+        }
+        else
+            counter++;
+    }
+    if(counter == 20)
+    {
+        cout<<"empty"<<endl;
+    }
+}
+
+void Library::newRenter(string in_title, string in_name)
+{
+    renter *New = new renter(in_title,in_name);
+    int location = hashSum(in_title);
+    renter *temp;
+    if(renterHash[location] == nullptr){
+        renterHash[location] = New;
+        New->next = nullptr;
+    }
+    else{
+        temp = renterHash[location];
+        renter *temp2 = temp;
+        while(temp != nullptr){
+            if(in_title.compare(temp->name) == 0){
+                cout<<"item in Table"<<endl;
+                return;
+            }
+            if(in_title.compare(temp->name) < 0){
+                if(temp == temp2){
+                    New->next = temp;
+                    renterHash[location] = New;
+                    return;
+                }
+                else{
+                    temp2->next = New;
+                    New->next = temp;
+                    return;
+                }
+            }
+            if(temp->next == nullptr || temp->next == NULL){
+                if(temp2 == temp){
+                    renterHash[location]->next = New;
+                    New->next = NULL;
+                    break;
+                }
+                else{
+                    temp->next = New;
+                    New->next = nullptr;
+                    break;
+                }
+            }
+            else{
+                temp2 = temp;
+                temp = temp->next;
+            }
+        }
+    }
+}
+
+void Library::outStock()
+{
+    int counter = 0;
+    item* temp;
+
+    for(int i=0;i<20;i++)
+    {
+        if(hashTable[i] != nullptr)
+        {
+            temp = hashTable[i];
+            while(temp->next != nullptr)
+            {
+                if(temp->quantity<=0)
+                    cout<<temp->title<<endl<<temp->author<<endl<<"Genre: "<<temp->genre<<endl<<"Year: " << temp->year<<endl<<"Medium: "<<temp->type<<endl<<"Quantity: "<<temp->quantity<<endl<<endl;
+                temp = temp->next;
+            }
+            if(temp->quantity<=0)
+                cout<<temp->title<<endl<<temp->author<<endl<<"Genre: "<<temp->genre<<endl<<"Year: " << temp->year<<endl<<"Medium: "<<temp->type<<endl<<"Quantity: "<<temp->quantity<<endl<<endl;
+        }
+        else
+            counter++;
+    }
+    if(counter == 20)
+    {
+        cout<<"empty"<<endl;
+    }
+}
+
+void Library::inStock()
+{
+       int counter = 0;
+    item* temp;
+
+    for(int i=0;i<20;i++)
+    {
+        if(hashTable[i] != nullptr)
+        {
+            temp = hashTable[i];
+            while(temp->next != nullptr)
+            {
+                if(temp->quantity>0)
+                    cout<<temp->title<<endl<<temp->author<<endl<<"Genre: "<<temp->genre<<endl<<"Year: " << temp->year<<endl<<"Medium: "<<temp->type<<endl<<"Quantity: "<<temp->quantity<<endl<<endl;
+                temp = temp->next;
+            }
+            if(temp->quantity>0)
+                cout<<temp->title<<endl<<temp->author<<endl<<"Genre: "<<temp->genre<<endl<<"Year: " << temp->year<<endl<<"Medium: "<<temp->type<<endl<<"Quantity: "<<temp->quantity<<endl<<endl;
+        }
+        else
+            counter++;
+    }
+    if(counter == 20)
+    {
+        cout<<"empty"<<endl;
+    }
+}
+
+

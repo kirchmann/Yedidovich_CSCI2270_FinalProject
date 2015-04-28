@@ -12,9 +12,9 @@ int main()
 
     string in_title; int in_year; string in_type; string in_genre; int in_quantity; string in_author;
 
-    while(choice!=7)
+    while(choice!=10)
     {
-        cout<<"Welcome to your library organizer! Please pick an option below:"<<endl<<"1. Check the status of an item"<<endl<<"2. Checkout or return an item"<<endl<<"3. Add an item to the library"<<endl<<"4. Delete an item from the library"<<endl<<"5. Display all items of a type"<<endl<<"6. Display all items"<<endl<<"7. Quit"<<endl;
+        cout<<"Welcome to your library organizer! Please pick an option below:"<<endl<<"1. Check the status of an item"<<endl<<"2. Checkout or return an item"<<endl<<"3. Add an item to the library"<<endl<<"4. Delete an item from the library"<<endl<<"5. Display all items of a type"<<endl<<"6. Display all items"<<endl<<"7. Print list of persons with checked-out items"<<endl<<"8. Print list of all checked-out items"<<endl<<"9. Print list of all available items"<<endl<<"10. Quit"<<endl;
         cin>>choice;
         if(choice == 1) //Check item status
         {
@@ -35,8 +35,10 @@ int main()
             cout<<"What's the title?"<<endl;
             cin.ignore(1000,'\n');
             getline(cin,in_title);
+            cout<<"What's your name?"<<endl;
+            cin>>in_author;
             if(choice == 1)
-                L.checkOutItem(in_title);
+                L.checkOutItem(in_title, in_author);
             else
                 L.returnItem(in_title);
         }
@@ -56,8 +58,7 @@ int main()
             cin.ignore(1000,'\n');
             getline(cin,in_genre);
             cout<<"What media is this item?"<<endl;
-            cin.ignore(2000,'\n');
-            getline(cin,in_type);
+            cin>>in_type;
             L.insertItem( in_title,  in_year,  in_type,  in_genre,  in_quantity, in_author);
         }
         else if(choice == 4)
@@ -85,6 +86,11 @@ int main()
         {
             cout<<endl;
             L.printAllInventory();
+        }
+        else if(choice == 7)
+        {
+            cout<<endl;
+            L.printRenters();
         }
         else
         {

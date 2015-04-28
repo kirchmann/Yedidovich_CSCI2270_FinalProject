@@ -29,20 +29,39 @@ struct item{
     }
 };
 
+struct renter{
+    string name;
+    string rentedItem;
+    renter* next;
+
+    renter(){};
+
+    renter(string in_name, string in_rentedItem)
+    {
+        name = in_name;
+        rentedItem = in_rentedItem;
+    }
+};
+
 class Library
 {
     public:
         Library();
         void insertItem(string in_title, int in_year, string in_type, string in_genre, int in_quantity, string in_author);
         void checkStatus(string in_title); //find item and display information
-        void checkOutItem(string in_title); //check out an item
+        void checkOutItem(string in_title, string in_name); //check out an item
         void returnItem(string in_title); //return an item
         void deleteItem(string in_title); //delete the item from the library
         void printInventory(int filter, string input); // print all of one type of item (checked out, a specific genre, etc)
         void printAllInventory(); //print the entire inventory
+        void inStock(); //print all items that are currently in stock
+        void outStock(); //print all items that are currently out-of-stock
+        void newRenter(string in_title, string name); //add to list of people renting
+        void printRenters(); //print a list of all persons who are currently renting something
     protected:
     private:
-        item *hashTable[20];
+        item* hashTable[20];
+        renter* renterHash[20];
         int hashSum(string title);
 };
 
