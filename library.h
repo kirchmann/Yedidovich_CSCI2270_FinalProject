@@ -63,6 +63,7 @@ class Library
         item* hashTable[20];
         renter* renterHash[20];
         int hashSum(string title);
+        item* findItem(string in_title);
 };
 
 #endif // LIBRARY_H_INCLUDED
