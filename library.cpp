@@ -458,3 +458,30 @@ void Library::inStock()
 }
 
 
+
+/*
+Finds and returns item, if not found return NULL
+Can use this private function in many of functions to reduce amount of code and make it clearer.
+*/
+item* Library::findItem(string in_title){
+    int hashLocation;
+    hashLocation = hashSum(in_title);
+    if(hashTable[hashLocation] == NULL)
+    {
+        return NULL;
+    }
+    item* temp = hashTable[hashLocation];
+    while(temp != NULL)
+    {
+        if(temp->title == in_title)
+        {
+            return temp;
+        }
+        else
+            temp = temp -> next;
+
+    }
+    return NULL;
+}
+
+
